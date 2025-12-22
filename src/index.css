@@ -1,0 +1,144 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Base Styles */
+body {
+  /* FIXED: using 'canvas' instead of 'background' */
+  @apply bg-canvas-light text-gray-800 transition-colors duration-300;
+}
+
+.dark body {
+  /* FIXED: using 'canvas' instead of 'background' */
+  @apply bg-canvas-dark text-gray-100;
+}
+
+/* Custom scrollbar - Tyrian Theme */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #F3F4F6;
+}
+
+.dark ::-webkit-scrollbar-track {
+  background: #111827;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #A3678A; /* Secondary Muted Purple */
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #66023C; /* Primary Tyrian */
+}
+
+/* Focus styles for accessibility */
+*:focus-visible {
+  outline: 2px solid #A3678A;
+  outline-offset: 2px;
+}
+
+/* Animation utilities */
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+
+.animate-on-scroll.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* -----------------------------------------------------------------
+   THEME COMPONENTS
+   ----------------------------------------------------------------- */
+
+/* Hero Gradient - DISTINGUISHED & ELEGANT */
+.hero-gradient {
+  /* Starts White -> Fades to a soft, warm Tyrian mist at the bottom */
+  background: linear-gradient(to bottom, #FFFFFF 0%, #FFF0F5 60%, #F3E6F0 100%);
+}
+
+.dark .hero-gradient {
+  /* A subtle spotlight effect for dark mode */
+  background: radial-gradient(circle at 50% 0%, #3D0124 0%, #111827 80%);
+}
+
+/* Skill chip - CLEAN & MINIMAL */
+.skill-chip {
+  @apply px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-200;
+  @apply bg-tint text-primary; 
+}
+
+.dark .skill-chip {
+  @apply bg-[#1f1f1f] text-secondary;
+}
+
+/* Project card - NO PURPLE BACKGROUNDS */
+.project-card {
+  @apply bg-white rounded-xl shadow-sm hover:shadow-md transition-all duration-300 hover:-translate-y-1;
+  @apply border border-gray-200;
+}
+
+.dark .project-card {
+  /* FIXED: using 'canvas' instead of 'background' */
+  @apply bg-canvas-darkAlt border-gray-700 shadow-none;
+}
+
+/* Primary Button - SOLID & CONFIDENT */
+.btn-primary {
+  @apply inline-flex items-center gap-2 px-6 py-3 font-medium rounded-lg transition-all duration-200;
+  @apply bg-primary text-white;
+  @apply hover:bg-primary-hover shadow-md hover:shadow-lg;
+  @apply focus:ring-4 focus:ring-secondary/30;
+}
+
+/* Secondary Button - OUTLINE & SUBTLE */
+.btn-secondary {
+  @apply inline-flex items-center gap-2 px-6 py-3 font-medium rounded-lg transition-all duration-200;
+  @apply border-2 border-primary text-primary bg-transparent;
+  @apply hover:bg-tint;
+  @apply focus:ring-4 focus:ring-secondary/20;
+}
+
+.dark .btn-secondary {
+  @apply border-secondary text-secondary hover:bg-secondary/10 hover:text-white;
+}
+
+/* Typography Accents */
+.text-heading {
+  @apply text-gray-900 font-bold;
+}
+.dark .text-heading {
+  @apply text-white;
+}
+
+.text-subheading {
+  @apply text-gray-500;
+}
+.dark .text-subheading {
+  @apply text-gray-400;
+}
+
+/* Accent underline - Tyrian Purple */
+.accent-underline {
+  @apply relative inline-block;
+}
+
+.accent-underline::after {
+  content: '';
+  @apply absolute bottom-0 left-0 w-full h-1 bg-primary rounded-full;
+}
+
+.dark .accent-underline::after {
+  @apply bg-secondary;
+}
