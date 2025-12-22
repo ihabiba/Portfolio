@@ -1,4 +1,3 @@
-import { BookOpen, Code, Database, Layout, Server, Terminal, Tool, Award } from 'lucide-react';
 
 // ============================================
 // PORTFOLIO CONTENT DATA
