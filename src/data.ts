@@ -316,24 +316,22 @@ export const experiences: Experience[] = [
 // EDUCATION
 // ============================================
 
-// 1. Update the Interface to include 'honors'
 export interface Education {
   institution: string;
   degree: string;
   period: string;
   cgpa: string;
-  honors?: string[]; // Added optional honors field
+  honors?: string[];
 }
 
-// 2. Add the Dean's List to your data
 export const education: Education = {
   institution: 'Albukhary International University (AIU)',
-  degree: 'Bachelor of Computer Science (Data Science)',
+  degree: 'Bachelor of Computer Science (Hons.) - Specialization in Data Science',
   period: '2023 – 2026 (Expected)',
   cgpa: '3.83 / 4.00',
   honors: [
-    'Dean\'s List Recipient (6 consecutive semesters)',
-    'Relevant Coursework: Machine Learning, NLP, Data Mining, Web Development'
+    'Dean\'s List Recipient (Every semester to date)',
+    'Relevant Coursework: Machine Learning, Deep Learning, NLP, Data Mining, AI, Data Structures & Algorithms, Database Systems, Cloud Computing'
   ],
 };
 
