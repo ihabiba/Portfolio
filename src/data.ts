@@ -73,7 +73,7 @@ export const heroData = {
   location: 'Malaysia',
   pitch: 'Final-year Computer Science (Data Science) student with hands-on experience in machine learning, analytics, and building data-driven applications. Seeking a 6-month internship starting March 2026.',
   // FIXED: Use relative path from public folder
-  resumeUrl: '/Portfolio/public/Habiba_Hassan_CV.pdf', 
+  resumeUrl: '/Portfolio/Habiba_Hassan_CV.pdf', 
   email: 'itshabibahassan@gmail.com',
   github: 'https://github.com/ihabiba',
   linkedin: 'https://linkedin.com/in/ihabiba',
