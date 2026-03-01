@@ -12,12 +12,24 @@ export default function Hero() {
         <div className="animate-fade-in flex flex-col lg:flex-row items-center gap-12">
           {/* Profile Image */}
           <div className="flex-shrink-0">
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-lg opacity-30 animate-pulse"></div>
+            <div className="relative group">
+              {/* Outer animated glow */}
+              <div className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-primary rounded-full blur-2xl opacity-40 group-hover:opacity-60 animate-pulse transition-opacity duration-500"></div>
+              
+              {/* Middle rotating gradient ring */}
+              <div className="absolute -inset-2 bg-gradient-to-br from-primary via-purple-400 to-secondary rounded-full opacity-30 animate-spin-slow"></div>
+              
+              {/* Inner solid ring */}
+              <div className="absolute -inset-1 bg-gradient-to-tr from-primary/80 to-secondary/80 rounded-full"></div>
+              
+              {/* White separator ring */}
+              <div className="absolute -inset-0.5 bg-white dark:bg-gray-900 rounded-full"></div>
+              
+              {/* Image */}
               <img
                 src={heroData.profileImage}
                 alt={heroData.name}
-                className="relative w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-2xl"
+                className="relative w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full object-cover shadow-2xl transform group-hover:scale-105 transition-transform duration-300"
               />
             </div>
           </div>
