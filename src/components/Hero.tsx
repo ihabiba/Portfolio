@@ -8,16 +8,26 @@ export default function Hero() {
       className="min-h-screen flex items-center justify-center hero-gradient pt-16"
       aria-label="Introduction"
     >
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <div className="animate-fade-in">
-          {/* Greeting - FIXED DARK MODE COLOR */}
-          <p className="text-primary dark:text-secondary font-medium text-lg mb-4 tracking-wide">
-            Hello, I'm
-          </p>
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="animate-fade-in flex flex-col lg:flex-row items-center gap-12">
+          {/* Profile Image */}
+          <div className="flex-shrink-0">
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary to-secondary rounded-full blur-lg opacity-30 animate-pulse"></div>
+              <img
+                src={heroData.profileImage}
+                alt={heroData.name}
+                className="relative w-48 h-48 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full object-cover border-4 border-white dark:border-gray-800 shadow-2xl"
+              />
+            </div>
+          </div>
 
-          {/* Name */}
+          {/* Content */}
+          <div className="flex-1 text-center lg:text-left">
+          {/* Greeting with Name */}
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
-            {heroData.name}
+            <span className="text-primary dark:text-secondary font-medium text-2xl sm:text-3xl md:text-4xl tracking-wide">Hello, I'm </span>
+            {heroData.name}!
           </h1>
 
           {/* Title */}
@@ -32,12 +42,12 @@ export default function Hero() {
           </div>
 
           {/* Pitch */}
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10 leading-relaxed text-justify">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed text-justify lg:text-left">
             {heroData.pitch}
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4">
             <a
               href={heroData.resumeUrl}
               download
@@ -78,6 +88,7 @@ export default function Hero() {
               <Mail size={20} />
               Email
             </a>
+          </div>
           </div>
         </div>
 

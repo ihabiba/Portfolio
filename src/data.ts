@@ -15,6 +15,7 @@ export interface Project {
   techStack: string[];
   repoUrl: string;
   demoUrl?: string;
+  demoUrl2?: string;
 }
 
 export interface Skill {
@@ -55,8 +56,8 @@ export interface SocialLink {
 // ============================================
 export const navItems: NavItem[] = [
   { label: 'About', href: '#about' },
-  { label: 'Projects', href: '#projects' },
   { label: 'Skills', href: '#skills' },
+  { label: 'Projects', href: '#projects' },
   { label: 'Experience', href: '#experience' },
   { label: 'Education', href: '#education' },
   { label: 'Certificates', href: '#certificates' },
@@ -69,9 +70,10 @@ export const navItems: NavItem[] = [
 // ============================================
 export const heroData = {
   name: 'Habiba Hassan',
-  title: 'Computer Science (Data Science)',
+  title: 'AI & Data Engineer | Full-Stack Developer',
   location: 'Malaysia',
-  pitch: 'Final-year Computer Science (Data Science) student with hands-on experience in machine learning, analytics, and building data-driven applications. Seeking a 6-month internship starting March 2026.',
+  pitch: 'Building end-to-end intelligent systems — from structured data pipelines to production-ready ML applications.',
+  profileImage: '/Portfolio/profile.jfif',
   // FIXED: Use relative path from public folder
   resumeUrl: '/Portfolio/Habiba_Hassan_CV.pdf', 
   email: 'itshabibahassan@gmail.com',
@@ -84,8 +86,9 @@ export const heroData = {
 // ============================================
 export const aboutData = {
   paragraphs: [
-    "I am a final-year Computer Science student specializing in Data Science, with hands-on experience working on machine learning models, analytics workflows, and data-driven applications. My focus is on understanding data properly, making deliberate modeling choices, and presenting results in a way that supports real decision-making.",
-    "Through academic and personal projects, I have worked end-to-end on data and machine learning problems — from defining the problem and preparing data to training models, evaluating results, and delivering them through simple applications or dashboards. While I am particularly interested in areas such as explainable machine learning and applied analytics, I am open to working across different domains and problem spaces in an industry internship."
+    "I am a final-year Computer Science (Data Science) student focused on building <strong>applied AI and data-driven systems that solve real operational problems</strong>. My work extends beyond model training — I design complete pipelines, from structured data modeling and preprocessing to model evaluation, deployment, and user-facing applications.",
+    "I have worked across <strong>machine learning, deep learning, NLP analytics, and explainable AI</strong>, with strong attention to data integrity, feature engineering, and reproducibility. I approach problems systematically — understanding the business context first, then engineering solutions that are technically sound and practically valuable.",
+    "My interest lies in <strong>AI-enabled systems, data infrastructure, and scalable backend architectures</strong> that bridge analytics and real-world applications."
   ],
 };
 
@@ -95,25 +98,38 @@ export const aboutData = {
 // ============================================
 export const projects: Project[] = [
   {
-    title: 'AIU Smart Feedback System with NLP Analytics (FYP)',
+    title: 'AIU Smart Feedback System (Applied NLP + LLM Integration)',
     description:
-      'A full-stack course evaluation system that automates feedback processing and provides role-based dashboards.',
+      'An AI-powered full-stack academic feedback platform that transforms large-scale qualitative feedback into structured, actionable insights.',
     highlights: [
-      'Built a Django + React + PostgreSQL system for students, lecturers, deans, and administrators',
-      'Added NLP analytics (sentiment, topic modeling, summarization) to extract insights from feedback',
-      'Details available upon request (final-year project repository is private)',
+      'Designed and implemented a Django + React + PostgreSQL system following full software engineering lifecycle principles (requirements, modular design, iterative development)',
+      'Integrated NLP pipelines and LLM APIs (Hugging Face Transformers + external LLM APIs) for sentiment analysis, topic extraction, summarization, and moderation of inappropriate content',
+      'Built role-based dashboards for students, lecturers, deans, and administrators to support data-driven academic decisions',
     ],
-    techStack: ['Python', 'Django', 'React', 'PostgreSQL', 'NLP'],
+    techStack: ['Python', 'Django', 'React', 'PostgreSQL', 'NLP', 'Hugging Face Transformers', 'LLM APIs'],
     repoUrl: '',
+  },
+  {
+    title: 'Writer Identification using Deep Learning (CNN from Scratch)',
+    description:
+      'A geometry-preserving deep learning system for offline handwritten writer identification trained entirely from scratch under strict constraints.',
+    highlights: [
+      'Designed a patch-based CNN architecture (5 convolutional blocks) trained without pretrained models',
+      'Engineered geometry-preserving preprocessing pipeline using OpenCV (Otsu binarization, projection-based line detection, fixed patch extraction without resizing)',
+      'Achieved 87.14% Top-1 accuracy and 0.99 Macro AUC despite extreme data scarcity (one page per writer)',
+    ],
+    techStack: ['Python', 'TensorFlow', 'Keras', 'OpenCV', 'NumPy', 'scikit-learn'],
+    repoUrl: 'https://github.com/ihabiba/writer-identification-deep-learning',
   },
   {
     title: 'Breast Cancer Diagnosis with Explainable AI (XAI)',
     description:
-      'An explainable breast cancer classification app combining a Random Forest model with SHAP and LIME explanations.',
+      'An interpretable ML classification system combining predictive accuracy with transparent decision explanations.',
     highlights: [
-      'Trained a Random Forest classifier on the Wisconsin Breast Cancer Diagnostic dataset',
-      'Integrated SHAP and LIME to provide instance-level explanations for each prediction',
-      'Built and deployed an interactive Streamlit app for predictions and visual explanations',
+      'Trained a Random Forest classifier achieving 99%+ accuracy on the Wisconsin dataset',
+      'Integrated SHAP and LIME for instance-level model interpretability',
+      'Deployed an interactive Streamlit application for prediction and visual explanation',
+      'Contributed experimental results to a research paper on Explainable AI in medical diagnostics (currently under review)',
     ],
     techStack: ['Python', 'Scikit-learn', 'SHAP', 'LIME', 'Streamlit'],
     repoUrl: 'https://github.com/ihabiba/breast-cancer-xai',
@@ -121,47 +137,56 @@ export const projects: Project[] = [
       'https://breast-cancer-xai-32lzdet2wbbtthdayahi6t.streamlit.app/',
   },
   {
-    title: 'Customer Analytics with Machine Learning',
+    title: 'Customer Analytics Suite (End-to-End ML System)',
     description:
-      'A customer analytics project combining churn prediction and customer segmentation with interactive dashboards.',
+      'A business-oriented analytics system integrating churn prediction and customer segmentation with deployable dashboards.',
     highlights: [
-      'Built churn prediction models with end-to-end preprocessing and evaluation (LogReg, SVM, KNN, Trees)',
-      'Performed customer segmentation using PCA + K-Means and analyzed segment characteristics',
-      'Deployed two Streamlit dashboards for churn prediction and segment exploration',
+      'Built supervised churn prediction models with full preprocessing and evaluation pipelines',
+      'Performed PCA-based dimensionality reduction and K-Means segmentation analysis',
+      'Deployed two interactive Streamlit dashboards for business-facing insights',
     ],
     techStack: [
       'Python',
       'Pandas',
       'Scikit-learn',
-      'Streamlit',
       'SHAP',
       'Matplotlib',
       'Seaborn',
+      'Streamlit',
     ],
     repoUrl: 'https://github.com/ihabiba/ML-customer-analysis',
-    demoUrl:
-      'https://ml-customer-analysis-uadd9gemwynm44izglfeax.streamlit.app/',
+    demoUrl: 'https://ml-customer-analysis-uadd9gemwynm44izglfeax.streamlit.app/',
+    demoUrl2: 'https://ml-customer-analysis-abrzs4mxobfcc8cccz9orb.streamlit.app/',
   },
   {
-    title: 'Bank Marketing Campaign Prediction',
+    title: 'HR & Recruitment Management System (Full Stack Application)',
     description:
-      'A supervised ML project predicting term-deposit subscription on an imbalanced marketing dataset.',
+      'A production-style full-stack web application replacing manual recruitment and payroll workflows.',
     highlights: [
-      'Handled class imbalance using SMOTE and evaluated models with stratified cross-validation (F1-score)',
-      'Trained and compared Decision Tree and Linear SVM models',
-      'Used RFE to select features and improve model performance and interpretability',
+      'Designed recruitment pipeline (job posting, applicant tracking, role-based access)',
+      'Implemented payroll processing with automated PDF generation (ReportLab)',
+      'Deployed production instance on Render',
     ],
-    techStack: ['Python', 'Scikit-learn', 'SMOTE', 'Matplotlib', 'Seaborn'],
-    repoUrl: 'https://github.com/ihabiba/BankMarketing-ML',
+    techStack: [
+      'Python',
+      'Flask',
+      'SQLAlchemy',
+      'PostgreSQL',
+      'SQLite',
+      'Bootstrap',
+      'Render',
+    ],
+    repoUrl: 'https://github.com/ihabiba/HR-APP',
+    demoUrl: 'https://hr-app-2.onrender.com/',
   },
   {
     title: 'Data Mining for Personalized Online Learning',
     description:
-      'A multi-method data mining project analyzing student behavior, dropout signals, and recommendations in online learning.',
+      'A multi-method data mining system analyzing behavioral patterns, recommendations, and predictive signals in online learning environments.',
     highlights: [
-      'Implemented Market Basket Analysis with Apriori to extract association rules from engagement patterns',
-      'Built content-based + collaborative filtering recommenders for course suggestions',
-      'Applied anomaly detection and time-series forecasting to identify outliers and predict performance trends',
+      'Implemented Market Basket Analysis (Apriori) to extract association rules',
+      'Built content-based and collaborative filtering recommendation engines',
+      'Applied anomaly detection and time-series forecasting for performance trend analysis',
     ],
     techStack: [
       'Python',
@@ -174,30 +199,6 @@ export const projects: Project[] = [
     ],
     repoUrl: 'https://github.com/ihabiba/applied-data-mining-systems',
   },
-  {
-    title: 'HR & Recruitment Management Web Application',
-    description:
-      'A full-stack HR system for recruitment, employee records, and payroll, with role-based access and a public job application portal.',
-    highlights: [
-      'Built recruitment workflows: job postings, open/close status, and applicant submissions (no account required)',
-      'Implemented employee management and payroll processing, including PDF payslips generated with ReportLab',
-      'Deployed on Render',
-    ],
-    techStack: [
-      'Python',
-      'Flask',
-      'SQLAlchemy',
-      'Flask-Login',
-      'Flask-WTF',
-      'SQLite',
-      'PostgreSQL',
-      'Bootstrap',
-      'ReportLab',
-      'Render',
-    ],
-    repoUrl: 'https://github.com/ihabiba/HR-APP',
-    demoUrl: 'https://hr-app-2.onrender.com/',
-  },
 ];
 
 
@@ -206,36 +207,50 @@ export const projects: Project[] = [
 // ============================================
 export const skills: Skill[] = [
   {
-    category: 'Data Science & Machine Learning',
+    category: 'AI & Machine Learning',
     items: [
-      'Python',
-      'Pandas',
-      'NumPy',
-      'Data Cleaning & Preprocessing',
-      'Feature Engineering',
+      'Python (Scikit-learn, TensorFlow, PyTorch)',
       'Supervised & Unsupervised Learning',
-      'Model Evaluation',
+      'Deep Learning (Neural Networks, Model Tuning)',
+      'Natural Language Processing (Text Preprocessing, Sentiment Analysis, Topic Modeling, Summarization, Speech-to-Text)',
+      'Large Language Models (LLM API Integration)',
       'Explainable AI (SHAP, LIME)',
-      'NLP Basics',
+      'Feature Engineering & Model Evaluation',
+      'Model Deployment (Streamlit, Flask)',
     ],
   },
   {
-    category: 'Web & Backend Development',
+    category: 'Data Engineering & Analytics',
     items: [
-      'Flask',
+      'Pandas, NumPy',
+      'Data Cleaning & Preprocessing',
+      'Exploratory Data Analysis (EDA)',
+      'Data Visualization (Matplotlib, Seaborn, Tableau)',
+      'SQL Querying & Optimization',
+      'Database Normalization & Relational Design',
+      'Joins, Indexing, Entity Relationships',
+      'ETL Concepts & Structured Data Modeling',
+    ],
+  },
+  {
+    category: 'Backend & API Development',
+    items: [
       'Django',
-      'REST APIs',
+      'Flask',
+      'RESTful API Design',
       'Authentication & Authorization',
       'Session Management',
+      'ORM (SQLAlchemy)',
+      'PostgreSQL / MySQL Integration',
     ],
   },
   {
-    category: 'Frontend',
+    category: 'Frontend Development',
     items: [
-      'HTML',
-      'CSS',
-      'JavaScript',
       'React',
+      'JavaScript',
+      'HTML5',
+      'CSS3',
       'Tailwind CSS',
       'Bootstrap',
     ],
@@ -247,19 +262,33 @@ export const skills: Skill[] = [
       'PostgreSQL',
       'MySQL',
       'SQLite',
-      'ORM (SQLAlchemy)',
+      'Database Schema Design',
+      'Normalization & Constraints',
     ],
   },
   {
-    category: 'Tools & Platforms',
+    category: 'Tools, Cloud & Infrastructure',
     items: [
-      'Git',
-      'GitHub',
+      'Git & GitHub',
       'Jupyter Notebook',
       'Streamlit',
-      'Render',
+      'Render (Deployment)',
+      'Postman / Thunder Client (API Testing)',
+      'Google Cloud Platform (GCP)',
+      'AWS (ML Foundations, NLP)',
       'VS Code',
-      'Tableau',
+      'Agile / SDLC Concepts',
+    ],
+  },
+  {
+    category: 'IoT & Embedded Systems',
+    items: [
+      'Arduino',
+      'ESP32',
+      'MQTT Protocol',
+      'HTTP Integration',
+      'Wokwi Simulation',
+      'Cloud Integration & Dashboard Development',
     ],
   },
 ];
@@ -331,7 +360,7 @@ export const education: Education = {
   cgpa: '3.83 / 4.00',
   honors: [
     'Dean\'s List Recipient (Every semester to date)',
-    'Relevant Coursework: Machine Learning, Deep Learning, NLP, Data Mining, AI, Data Structures & Algorithms, Database Systems, Cloud Computing'
+    'Relevant Coursework: Software Engineering, Data Structures & Algorithms, Object Oriented Programming, Database Systems, Cloud Computing, Machine Learning, Deep Learning, NLP, Data Mining and Analytics, Artificial Intelligence, Probability & Statistics, Discrete mathematics, Internet of Things (IoT)'
   ],
 };
 
@@ -340,6 +369,20 @@ export const education: Education = {
 // CERTIFICATES
 // ============================================
 export const certificates: Certificate[] = [
+  {
+    title: 'AWS Academy Graduate – Machine Learning for Natural Language Processing',
+    issuer: 'Amazon Web Services (AWS)',
+    year: '2026',
+    url: 'https://www.credly.com/badges/f12b8758-383a-4ee1-bb6e-0e8c48238b4b/print',
+    skills: ['Natural Language Processing', 'Machine Learning', 'AWS Cloud', 'ML Solution Design']
+  },
+  {
+    title: 'AWS Academy Graduate – Machine Learning Foundations',
+    issuer: 'Amazon Web Services (AWS)',
+    year: '2026',
+    url: 'https://www.credly.com/badges/17d1d23a-52fe-4892-ad98-684fd004b36b/print',
+    skills: ['Machine Learning Foundations', 'Artificial Intelligence', 'AWS Cloud Computing', 'ML Concepts']
+  },
   {
     title: 'AWS Academy: Generative AI Foundations',
     issuer: 'AWS Academy',

@@ -24,11 +24,13 @@ export default function About() {
             Get to know my background and interests
           </p>
 
-          <div className="space-y-4 text-gray-600 dark:text-gray-300 leading-relaxed">
+          <div className="space-y-6 text-gray-600 dark:text-gray-300 leading-relaxed">
             {aboutData.paragraphs.map((paragraph, index) => (
-              <p key={index} className="text-lg text-justify">
-                {paragraph}
-              </p>
+              <p 
+                key={index} 
+                className="text-lg text-justify"
+                dangerouslySetInnerHTML={{ __html: paragraph }}
+              />
             ))}
           </div>
         </div>

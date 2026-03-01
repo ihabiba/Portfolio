@@ -11,7 +11,7 @@ export default function Certificates() {
       className="py-20 bg-canvas-alt dark:bg-canvas-dark"
       aria-labelledby="certificates-heading"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div
           ref={ref}
           className={`transition-all duration-700 ${
@@ -25,7 +25,7 @@ export default function Certificates() {
             Professional certifications and achievements
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
             {certificates.map((cert, index) => (
               <article
                 key={index}

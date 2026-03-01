@@ -31,8 +31,8 @@ function App() {
       <main id="main-content">
         <Hero />
         <About />
-        <Projects />
         <Skills />
+        <Projects />
         <Experience />
         <Education />
         <Certificates />
