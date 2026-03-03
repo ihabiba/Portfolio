@@ -444,7 +444,7 @@ export const languages: Language[] = [
   { name: 'Arabic', proficiency: 'Native' },
   { name: 'Somali', proficiency: 'Native' },
   { name: 'English', proficiency: 'Fluent' },
-  { name: 'Turkish', proficiency: 'Intermediate' },
+  { name: 'Turkish', proficiency: 'Advanced' },
 ];
 
 
