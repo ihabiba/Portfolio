@@ -386,7 +386,7 @@ export const certificates: Certificate[] = [
   {
     title: 'AWS Academy: Generative AI Foundations',
     issuer: 'AWS Academy',
-    year: '2024',
+    year: '2025',
     // REAL Credly Link
     url: 'https://www.credly.com/badges/f1a56a83-9af5-4265-ab90-d0391c0d0b8e',
     skills: ['Generative AI', 'AWS Cloud', 'Prompt Engineering']
@@ -394,7 +394,7 @@ export const certificates: Certificate[] = [
   {
     title: 'Google Cloud Computing Foundations',
     issuer: 'Google',
-    year: '2024',
+    year: '2025',
     // REAL Credly Link
     url: 'https://www.credly.com/badges/4de6f2e5-b579-446b-834d-a0af122192cf',
     skills: ['Cloud Computing', 'GCP', 'Network Security']
@@ -402,7 +402,7 @@ export const certificates: Certificate[] = [
   {
     title: 'Python Pro Bootcamp: 100 Days of Code',
     issuer: 'Udemy',
-    year: '2023',
+    year: '2025',
     // REAL Udemy Link
     url: 'https://www.udemy.com/certificate/UC-72ed6f02-8f75-47ae-9fdd-bee5858bb860/',
     skills: ['Python', 'OOP', 'Flask', 'Pandas']
@@ -410,14 +410,14 @@ export const certificates: Certificate[] = [
   {
     title: 'Career Essentials in Data Analysis',
     issuer: 'Microsoft & LinkedIn',
-    year: '2024',
+    year: '2025',
     url: 'https://www.linkedin.com/learning/certificates/9207ff1689bdf43e521659375846b6a1322f41779d41893247f3a1119d249548?trk=share_certificate&lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_view_base_certifications_details%3BX8Abuns%2BTjWvnMujbeSnEA%3D%3D',
     skills: ['Data Analysis', 'Visualization', 'Power BI']
   },
   {
     title: 'Django REST Bootcamp',
     issuer: 'AIU School of Computing',
-    year: '2024',
+    year: '2025',
     // LOCAL FILE LINK (Encoded spaces)
     url: '/Portfolio/certificates/Django%20REST%20Bootcamp%20CERTIFICATES(Signed)-18.pdf',    
     skills: ['Django', 'REST APIs', 'Backend Dev']
@@ -425,7 +425,7 @@ export const certificates: Certificate[] = [
   {
     title: 'Applied Data Science with Python',
     issuer: 'Simplilearn',
-    year: '2024',
+    year: '2025',
     url: 'https://simpli-web.app.link/e/4CLZs7kcPSb', 
     skills: ['Data Science', 'Statistics', 'Matplotlib']
   },
