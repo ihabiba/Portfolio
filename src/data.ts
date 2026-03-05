@@ -72,7 +72,7 @@ export const heroData = {
   name: 'Habiba Hassan',
   title: 'AI & Data Engineer | Full-Stack Developer',
   location: 'Malaysia',
-  pitch: 'Building end-to-end intelligent systems — from structured data pipelines to production-ready ML applications.',
+  pitch: 'Building end-to-end intelligent systems, from structured data pipelines to production-ready ML applications.',
   profileImage: '/Portfolio/profile.jfif',
   // FIXED: Use relative path from public folder
   resumeUrl: '/Portfolio/Habiba_Hassan_CV.pdf', 
@@ -86,8 +86,8 @@ export const heroData = {
 // ============================================
 export const aboutData = {
   paragraphs: [
-    "I am a final-year Computer Science (Data Science) student focused on building <strong>applied AI and data-driven systems that solve real operational problems</strong>. My work extends beyond model training — I design complete pipelines, from structured data modeling and preprocessing to model evaluation, deployment, and user-facing applications.",
-    "I have worked across <strong>machine learning, deep learning, NLP analytics, and explainable AI</strong>, with strong attention to data integrity, feature engineering, and reproducibility. I approach problems systematically — understanding the business context first, then engineering solutions that are technically sound and practically valuable.",
+    "I am a final-year Computer Science (Data Science) student focused on building <strong>applied AI and data-driven systems that solve real operational problems</strong>. My work extends beyond model training. I design complete pipelines, from structured data modeling and preprocessing to model evaluation, deployment, and user-facing applications.",
+    "I have worked across <strong>machine learning, deep learning, NLP analytics, and explainable AI</strong>, with strong attention to data integrity, feature engineering, and reproducibility. I approach problems systematically: understanding the business context first, then engineering solutions that are technically sound and practically valuable.",
     "My interest lies in <strong>AI-enabled systems, data infrastructure, and scalable backend architectures</strong> that bridge analytics and real-world applications."
   ],
 };
