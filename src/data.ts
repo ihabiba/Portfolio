@@ -159,25 +159,16 @@ export const projects: Project[] = [
     demoUrl2: 'https://ml-customer-analysis-abrzs4mxobfcc8cccz9orb.streamlit.app/',
   },
   {
-    title: 'HR & Recruitment Management System (Full Stack Application)',
+    title: 'Golden Knot — Multi-Vendor E-Commerce Marketplace',
     description:
-      'A production-style full-stack web application replacing manual recruitment and payroll workflows.',
+      'A full-stack marketplace connecting Afghan women weavers with global buyers, featuring multi-role access, product approval workflows, and end-to-end commerce operations.',
     highlights: [
-      'Designed recruitment pipeline (job posting, applicant tracking, role-based access)',
-      'Implemented payroll processing with automated PDF generation (ReportLab)',
-      'Deployed production instance on Render',
+      'Built multi-role system (customer, seller, admin) with product approval workflow, seller onboarding, and payout management',
+      'Implemented shopping cart, checkout, order tracking, wishlists, promo codes, and customer reviews',
+      'Deployed with Django REST Framework + React 19 + TypeScript frontend, PostgreSQL on Supabase, images via Cloudinary, hosted on Render + Vercel',
     ],
-    techStack: [
-      'Python',
-      'Flask',
-      'SQLAlchemy',
-      'PostgreSQL',
-      'SQLite',
-      'Bootstrap',
-      'Render',
-    ],
-    repoUrl: 'https://github.com/ihabiba/HR-APP',
-    demoUrl: 'https://hr-app-2.onrender.com/',
+    techStack: ['React', 'TypeScript', 'Django', 'PostgreSQL', 'Supabase', 'Cloudinary', 'REST API', 'Tailwind CSS'],
+    repoUrl: 'https://github.com/ihabiba/GoldenKnot',
   },
   {
     title: 'Data Mining for Personalized Online Learning',

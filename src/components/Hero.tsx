@@ -1,14 +1,19 @@
-import { Download, Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { Github, Linkedin, Mail, MapPin } from 'lucide-react';
 import { heroData } from '../data';
 
 export default function Hero() {
   return (
     <section
       id="hero"
-      className="min-h-screen flex items-center justify-center hero-gradient pt-16"
+      className="relative min-h-screen flex items-center justify-center hero-gradient pt-16 overflow-hidden"
       aria-label="Introduction"
     >
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      {/* Ambient effects */}
+      <div className="hero-grid-overlay" aria-hidden="true" />
+      <div className="hero-orb hero-orb--violet" aria-hidden="true" />
+      <div className="hero-orb hero-orb--rose" aria-hidden="true" />
+
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
         <div className="animate-fade-in flex flex-col lg:flex-row items-center gap-12">
           {/* Profile Image */}
           <div className="flex-shrink-0">
@@ -36,40 +41,38 @@ export default function Hero() {
 
           {/* Content */}
           <div className="flex-1 text-center lg:text-left">
+          {/* Availability pill */}
+          <div className="flex justify-center lg:justify-start mb-5">
+            <span className="availability-pill">
+              <span className="availability-dot" />
+              Open to opportunities
+            </span>
+          </div>
+
           {/* Greeting with Name */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight stagger-1">
             <span className="text-primary dark:text-secondary font-medium text-2xl sm:text-3xl md:text-4xl tracking-wide">Hello, I'm </span>
             {heroData.name}!
           </h1>
 
           {/* Title */}
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary/90 dark:text-secondary mb-4">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary/90 dark:text-secondary mb-4 stagger-2">
             {heroData.title}
           </h2>
 
           {/* Location */}
-          <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400 mb-6">
+          <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400 mb-6 stagger-3">
             <MapPin size={18} className="text-primary dark:text-secondary" />
             <span>{heroData.location}</span>
           </div>
 
           {/* Pitch */}
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed text-justify lg:text-left">
+          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed text-justify lg:text-left stagger-4">
             {heroData.pitch}
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center lg:justify-start gap-4">
-            <a
-              href={heroData.resumeUrl}
-              download
-              className="btn-primary"
-              aria-label="Download CV"
-            >
-              <Download size={20} />
-              Download CV
-            </a>
-
+          <div className="flex flex-wrap justify-center lg:justify-start gap-4 stagger-5">
             <a
               href={heroData.github}
               target="_blank"

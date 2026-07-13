@@ -31,8 +31,7 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
-          // CHANGED: Purple background when scrolled
-          ? 'bg-primary/95 dark:bg-tertiary/95 backdrop-blur-sm shadow-md'
+          ? 'bg-white/85 dark:bg-gray-900/85 backdrop-blur-md border-b border-gray-200/60 dark:border-gray-700/60 shadow-sm'
           : 'bg-transparent'
       }`}
       role="navigation"
@@ -40,10 +39,10 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo - Force White text since background is purple */}
+          {/* Logo */}
           <a
             href="#"
-            className={`text-2xl font-bold tracking-tight ${scrolled ? 'text-white' : 'text-primary dark:text-white'}`}
+            className="text-2xl font-bold tracking-tight text-primary dark:text-secondary"
             aria-label="Home"
           >
             HH
@@ -55,23 +54,14 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
               <button
                 key={item.href}
                 onClick={() => handleNavClick(item.href)}
-                // CHANGED: Text colors to work on both purple (scrolled) and white (unscrolled) backgrounds
-                className={`px-4 py-2 font-medium transition-colors rounded-lg
-                  ${scrolled 
-                    ? 'text-purple-100 hover:text-white hover:bg-white/10' 
-                    : 'text-gray-600 dark:text-gray-300 hover:bg-tint dark:hover:bg-white/10 hover:text-primary dark:hover:text-white'
-                  }`}
+                className="px-4 py-2 font-medium transition-colors rounded-lg text-gray-600 dark:text-gray-300 hover:bg-tint dark:hover:bg-white/10 hover:text-primary dark:hover:text-white"
               >
                 {item.label}
               </button>
             ))}
             <button
               onClick={toggleDarkMode}
-              className={`ml-4 p-2 rounded-lg transition-colors
-                ${scrolled
-                  ? 'bg-white/10 text-white hover:bg-white/20'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-secondary'
-                }`}
+              className="ml-4 p-2 rounded-lg transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-secondary hover:bg-tint dark:hover:bg-gray-700"
               aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
@@ -80,23 +70,15 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
 
           {/* Mobile Menu Button */}
           <div className="flex items-center md:hidden space-x-2">
-             <button
+            <button
               onClick={toggleDarkMode}
-               className={`p-2 rounded-lg transition-colors
-                ${scrolled
-                  ? 'bg-white/10 text-white'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-secondary'
-                }`}
+              className="p-2 rounded-lg transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-secondary"
             >
               {darkMode ? <Sun size={20} /> : <Moon size={20} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className={`p-2 rounded-lg transition-colors
-                ${scrolled
-                  ? 'text-white hover:bg-white/10'
-                  : 'text-gray-600 dark:text-gray-300'
-                }`}
+              className="p-2 rounded-lg transition-colors text-gray-600 dark:text-gray-300 hover:bg-tint dark:hover:bg-gray-700"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

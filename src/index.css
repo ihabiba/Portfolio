@@ -156,3 +156,142 @@ body {
 .dark .accent-underline::after {
   @apply bg-secondary;
 }
+
+/* -----------------------------------------------------------------
+   HERO AMBIENT EFFECTS
+   ----------------------------------------------------------------- */
+
+/* Subtle grid overlay */
+.hero-grid-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.35;
+  background-image:
+    linear-gradient(rgba(102, 2, 60, 0.15) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(102, 2, 60, 0.15) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: linear-gradient(to bottom, black 0%, transparent 80%);
+}
+
+.dark .hero-grid-overlay {
+  opacity: 0.2;
+  background-image:
+    linear-gradient(rgba(163, 103, 138, 0.2) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(163, 103, 138, 0.2) 1px, transparent 1px);
+}
+
+/* Ambient orbs */
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  filter: blur(60px);
+  opacity: 0.25;
+  animation: orb-drift 8s ease-in-out infinite alternate;
+}
+
+.hero-orb--violet {
+  width: 480px;
+  height: 480px;
+  right: -100px;
+  top: 0;
+  background: radial-gradient(circle, #66023C, transparent 68%);
+  animation-delay: 0s;
+}
+
+.hero-orb--rose {
+  width: 360px;
+  height: 360px;
+  left: -120px;
+  bottom: -40px;
+  background: radial-gradient(circle, #A3678A, transparent 70%);
+  animation-delay: -4s;
+}
+
+.dark .hero-orb {
+  opacity: 0.18;
+}
+
+@keyframes orb-drift {
+  from { transform: translate(0, 0) scale(1); }
+  to   { transform: translate(20px, -20px) scale(1.06); }
+}
+
+/* Availability pill */
+.availability-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  border: 1px solid rgba(102, 2, 60, 0.2);
+  border-radius: 999px;
+  background: rgba(242, 233, 238, 0.7);
+  font-size: 12px;
+  font-weight: 600;
+  color: #66023C;
+  backdrop-filter: blur(8px);
+}
+
+.dark .availability-pill {
+  border-color: rgba(163, 103, 138, 0.3);
+  background: rgba(163, 103, 138, 0.12);
+  color: #A3678A;
+}
+
+.availability-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.2); }
+  50%       { box-shadow: 0 0 0 7px rgba(34, 197, 94, 0.08); }
+}
+
+/* -----------------------------------------------------------------
+   STAGGERED ENTRANCE ANIMATIONS
+   ----------------------------------------------------------------- */
+
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.35s; }
+.stagger-4 { animation-delay: 0.5s; }
+.stagger-5 { animation-delay: 0.65s; }
+
+[class*="stagger-"] {
+  opacity: 0;
+  animation: slideUp 0.6s ease-out forwards;
+}
+
+/* -----------------------------------------------------------------
+   PROJECT CARD GLOW ON HOVER
+   ----------------------------------------------------------------- */
+
+.project-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background: linear-gradient(135deg, rgba(102, 2, 60, 0.04) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+.dark .project-card:hover {
+  border-color: rgba(163, 103, 138, 0.35) !important;
+}
