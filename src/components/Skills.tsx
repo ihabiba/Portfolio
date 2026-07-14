@@ -1,26 +1,60 @@
+import { useRef, useState, useEffect, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, Brain, Database, Server, Layout, Cloud, Wrench, Cpu } from 'lucide-react';
 import { skills } from '../data';
 import { useInView } from '../hooks/useInView';
 
-// Split skills into two rows for the opposite-direction marquees
-const row1Categories = skills.slice(0, 4);  // AI/ML, Data, Backend, Frontend
-const row2Categories = skills.slice(4);     // DB/Cloud, DevOps, IoT
+const categoryIcons: Record<string, React.ReactNode> = {
+  'AI & Machine Learning':        <Brain size={22} />,
+  'Data Engineering & Analytics': <Database size={22} />,
+  'Backend & API Development':    <Server size={22} />,
+  'Frontend Development':         <Layout size={22} />,
+  'Databases & Cloud':            <Cloud size={22} />,
+  'Tools & DevOps':               <Wrench size={22} />,
+  'IoT & Embedded Systems':       <Cpu size={22} />,
+};
 
-// Flatten all chips from a set of categories into one array
-const flatChips = (cats: typeof skills) =>
-  cats.flatMap(cat =>
-    cat.items.map(item => ({ category: cat.category, item }))
-  );
-
-const row1Chips = flatChips(row1Categories);
-const row2Chips = flatChips(row2Categories);
+const GAP = 24;
 
 export default function Skills() {
   const { ref, isVisible } = useInView();
+  const trackRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const isPaused = useRef(false);
+  const currentRef = useRef(0);
+  currentRef.current = currentIndex;
+
+  const getCardWidth = useCallback(() => {
+    const card = cardRef.current;
+    return card ? card.offsetWidth + GAP : 0;
+  }, []);
+
+  const slideTo = useCallback((index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const clamped = (index + skills.length) % skills.length;
+    track.style.transform = `translateX(-${clamped * getCardWidth()}px)`;
+    setCurrentIndex(clamped);
+    currentRef.current = clamped;
+  }, [getCardWidth]);
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!isPaused.current) slideTo(currentRef.current + 1);
+    }, 3500);
+    return () => clearInterval(timer);
+  }, [slideTo]);
+
+  useEffect(() => {
+    const onResize = () => slideTo(currentRef.current);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [slideTo]);
 
   return (
     <section
       id="skills"
-      className="py-20 bg-white dark:bg-canvas-dark overflow-hidden"
+      className="py-20 bg-white dark:bg-canvas-dark"
       aria-labelledby="skills-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -33,41 +67,79 @@ export default function Skills() {
           <h2 id="skills-heading" className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-2">
             Technical <span className="text-primary dark:text-secondary">Skills</span>
           </h2>
-          <p className="text-lg text-gray-500 dark:text-gray-400 text-center mb-12">
+          <p className="text-lg text-gray-500 dark:text-gray-400 text-center mb-10">
             Technologies and tools I work with
           </p>
-        </div>
-      </div>
 
-      {/* Row 1 — scrolls left */}
-      <div className="marquee-wrapper mb-4">
-        <div className="marquee-track marquee-track--left">
-          {[...row1Chips, ...row1Chips].map(({ category, item }, i) => (
-            <div
-              key={i}
-              className="flex-none flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-sm whitespace-nowrap"
+          {/* Carousel */}
+          <div
+            className="relative"
+            onMouseEnter={() => { isPaused.current = true; }}
+            onMouseLeave={() => { isPaused.current = false; }}
+          >
+            <button
+              onClick={() => slideTo(currentIndex - 1)}
+              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 hidden sm:flex items-center justify-center rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-md text-primary dark:text-secondary hover:bg-tint dark:hover:bg-gray-700 transition-all duration-200"
+              aria-label="Previous skill group"
             >
-              <span className="w-2 h-2 rounded-full bg-primary dark:bg-secondary flex-none" aria-hidden="true" />
-              <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">{category.split(' ')[0]}</span>
-              <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{item}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+              <ChevronLeft size={20} />
+            </button>
 
-      {/* Row 2 — scrolls right */}
-      <div className="marquee-wrapper">
-        <div className="marquee-track marquee-track--right">
-          {[...row2Chips, ...row2Chips].map(({ category, item }, i) => (
-            <div
-              key={i}
-              className="flex-none flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-sm whitespace-nowrap"
+            <button
+              onClick={() => slideTo(currentIndex + 1)}
+              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 hidden sm:flex items-center justify-center rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-md text-primary dark:text-secondary hover:bg-tint dark:hover:bg-gray-700 transition-all duration-200"
+              aria-label="Next skill group"
             >
-              <span className="w-2 h-2 rounded-full bg-secondary dark:bg-secondary flex-none" aria-hidden="true" />
-              <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">{category.split(' ')[0]}</span>
-              <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{item}</span>
+              <ChevronRight size={20} />
+            </button>
+
+            <div className="carousel-wrapper">
+              <div ref={trackRef} className="carousel-track" style={{ gap: `${GAP}px` }}>
+                {skills.map((group, index) => (
+                  <article
+                    key={index}
+                    ref={index === 0 ? (cardRef as React.RefObject<HTMLElement>) : undefined}
+                    className="carousel-card project-card p-6 flex flex-col"
+                  >
+                    {/* Header */}
+                    <div className="flex items-center gap-3 mb-5 pb-4 border-b border-gray-100 dark:border-gray-700">
+                      <div className="w-10 h-10 rounded-xl bg-tint dark:bg-gray-800 flex items-center justify-center text-primary dark:text-secondary flex-none">
+                        {categoryIcons[group.category] ?? <Wrench size={22} />}
+                      </div>
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-white leading-tight">
+                        {group.category}
+                      </h3>
+                    </div>
+
+                    {/* Chips */}
+                    <div className="flex flex-wrap gap-2">
+                      {group.items.map((item, i) => (
+                        <span key={i} className="skill-chip text-xs py-1 px-2.5">
+                          {item}
+                        </span>
+                      ))}
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
-          ))}
+          </div>
+
+          {/* Dots */}
+          <div className="flex justify-center gap-2 mt-6">
+            {skills.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => slideTo(i)}
+                className={`h-2 rounded-full transition-all duration-300 ${
+                  i === currentIndex
+                    ? 'w-8 bg-primary dark:bg-secondary'
+                    : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-secondary'
+                }`}
+                aria-label={`Go to skill group ${i + 1}`}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </section>

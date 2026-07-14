@@ -42,10 +42,18 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
           {/* Logo */}
           <a
             href="#"
-            className="text-2xl font-bold tracking-tight text-primary dark:text-secondary"
+            className="flex items-center gap-2.5 group"
             aria-label="Home"
           >
-            HH
+            <img
+              src="/Portfolio/favicon.svg"
+              alt=""
+              className="w-8 h-8 rounded-lg shadow-sm group-hover:scale-105 transition-transform duration-200"
+              aria-hidden="true"
+            />
+            <span className="text-xl font-bold tracking-tight gradient-name">
+              Habiba
+            </span>
           </a>
 
           {/* Desktop Navigation */}
