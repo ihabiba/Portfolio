@@ -18,19 +18,10 @@ export default function Hero() {
           {/* Profile Image */}
           <div className="flex-shrink-0">
             <div className="relative group">
-              {/* Outer animated glow */}
               <div className="absolute -inset-4 bg-gradient-to-r from-primary via-secondary to-primary rounded-full blur-2xl opacity-40 group-hover:opacity-60 animate-pulse transition-opacity duration-500"></div>
-              
-              {/* Middle rotating gradient ring */}
               <div className="absolute -inset-2 bg-gradient-to-br from-primary via-purple-400 to-secondary rounded-full opacity-30 animate-spin-slow"></div>
-              
-              {/* Inner solid ring */}
               <div className="absolute -inset-1 bg-gradient-to-tr from-primary/80 to-secondary/80 rounded-full"></div>
-              
-              {/* White separator ring */}
               <div className="absolute -inset-0.5 bg-white dark:bg-gray-900 rounded-full"></div>
-              
-              {/* Image */}
               <img
                 src={heroData.profileImage}
                 alt={heroData.name}
@@ -41,69 +32,69 @@ export default function Hero() {
 
           {/* Content */}
           <div className="flex-1 text-center lg:text-left">
-          {/* Availability pill */}
-          <div className="flex justify-center lg:justify-start mb-5">
-            <span className="availability-pill">
-              <span className="availability-dot" />
-              Open to opportunities
-            </span>
-          </div>
+            {/* Availability pill */}
+            <div className="flex justify-center lg:justify-start mb-5">
+              <span className="availability-pill">
+                <span className="availability-dot" />
+                Open to opportunities
+              </span>
+            </div>
 
-          {/* Greeting with Name */}
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight stagger-1">
-            <span className="text-primary dark:text-secondary font-medium text-2xl sm:text-3xl md:text-4xl tracking-wide">Hello, I'm </span>
-            {heroData.name}!
-          </h1>
+            {/* Greeting with Name */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-gray-900 dark:text-white mb-4 tracking-tight">
+              <span className="text-primary dark:text-secondary font-medium text-2xl sm:text-3xl md:text-4xl tracking-wide">Hello, I'm </span>
+              {heroData.name}!
+            </h1>
 
-          {/* Title */}
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary/90 dark:text-secondary mb-4 stagger-2">
-            {heroData.title}
-          </h2>
+            {/* Title */}
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-semibold text-primary/90 dark:text-secondary mb-4">
+              {heroData.title}
+            </h2>
 
-          {/* Location */}
-          <div className="flex items-center justify-center gap-2 text-gray-600 dark:text-gray-400 mb-6 stagger-3">
-            <MapPin size={18} className="text-primary dark:text-secondary" />
-            <span>{heroData.location}</span>
-          </div>
+            {/* Location */}
+            <div className="flex items-center justify-center lg:justify-start gap-2 text-gray-600 dark:text-gray-400 mb-6">
+              <MapPin size={18} className="text-primary dark:text-secondary" />
+              <span>{heroData.location}</span>
+            </div>
 
-          {/* Pitch */}
-          <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed text-justify lg:text-left stagger-4">
-            {heroData.pitch}
-          </p>
+            {/* Pitch */}
+            <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto lg:mx-0 mb-10 leading-relaxed text-justify lg:text-left">
+              {heroData.pitch}
+            </p>
 
-          {/* CTA Buttons */}
-          <div className="flex flex-wrap justify-center lg:justify-start gap-4 stagger-5">
-            <a
-              href={heroData.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-              aria-label="View GitHub profile"
-            >
-              <Github size={20} />
-              GitHub
-            </a>
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap justify-center lg:justify-start gap-4">
+              <a
+                href={heroData.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                aria-label="View GitHub profile"
+              >
+                <Github size={20} />
+                GitHub
+              </a>
 
-            <a
-              href={heroData.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary"
-              aria-label="View LinkedIn profile"
-            >
-              <Linkedin size={20} />
-              LinkedIn
-            </a>
+              <a
+                href={heroData.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-secondary"
+                aria-label="View LinkedIn profile"
+              >
+                <Linkedin size={20} />
+                LinkedIn
+              </a>
 
-            <a
-              href={`mailto:${heroData.email}`}
-              className="btn-secondary"
-              aria-label="Send email"
-            >
-              <Mail size={20} />
-              Email
-            </a>
-          </div>
+              <a
+                href={`mailto:${heroData.email}`}
+                className="btn-secondary"
+                aria-label="Send email"
+              >
+                <Mail size={20} />
+                Email
+              </a>
+            </div>
           </div>
         </div>
 
