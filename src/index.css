@@ -282,25 +282,25 @@ body {
 }
 
 /* -----------------------------------------------------------------
-   GRADIENT NAME
+   GRADIENT NAME — white shimmer sweep
    ----------------------------------------------------------------- */
 
 .gradient-name {
-  background: linear-gradient(135deg, #66023C 0%, #A3678A 45%, #66023C 100%);
-  background-size: 200% auto;
+  background: linear-gradient(90deg, #66023C 0%, #A3678A 30%, #ffffff 50%, #A3678A 70%, #66023C 100%);
+  background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer-text 4s ease-in-out infinite;
+  animation: shimmer-text 3.5s ease-in-out infinite;
 }
 
 .dark .gradient-name {
-  background: linear-gradient(135deg, #A3678A 0%, #d4a0bb 45%, #A3678A 100%);
-  background-size: 200% auto;
+  background: linear-gradient(90deg, #A3678A 0%, #d4b0c8 30%, #ffffff 50%, #d4b0c8 70%, #A3678A 100%);
+  background-size: 300% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer-text 4s ease-in-out infinite;
+  animation: shimmer-text 3.5s ease-in-out infinite;
 }
 
 @keyframes shimmer-text {
@@ -355,4 +355,71 @@ body {
 .section-fade.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+/* -----------------------------------------------------------------
+   INFINITE MARQUEE — continuous auto-scroll for skills & certs
+   ----------------------------------------------------------------- */
+
+.marquee-wrapper {
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0%, black 8%, black 92%, transparent 100%);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  gap: 16px;
+}
+
+.marquee-track--left {
+  animation: marquee-left 35s linear infinite;
+}
+
+.marquee-track--right {
+  animation: marquee-right 35s linear infinite;
+}
+
+.marquee-wrapper:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@keyframes marquee-left {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+@keyframes marquee-right {
+  from { transform: translateX(-50%); }
+  to   { transform: translateX(0); }
+}
+
+/* -----------------------------------------------------------------
+   AUTO-PLAY CAROUSEL (Projects & Certificates)
+   ----------------------------------------------------------------- */
+
+.carousel-wrapper {
+  overflow: hidden;
+  position: relative;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  will-change: transform;
+}
+
+.carousel-card {
+  flex: none;
+  width: 85vw;
+  max-width: 500px;
+}
+
+@media (min-width: 640px) {
+  .carousel-card { width: 60vw; }
+}
+
+@media (min-width: 1024px) {
+  .carousel-card { width: 44vw; max-width: 520px; }
 }

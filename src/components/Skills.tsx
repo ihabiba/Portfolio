@@ -1,27 +1,18 @@
 import { skills } from '../data';
 import { useInView } from '../hooks/useInView';
-import { 
-  Brain,
-  Database, 
-  Server, 
-  Layout, 
-  HardDrive, 
-  Cloud,
-  Cpu,
-  Wrench 
-} from 'lucide-react';
 
-const categoryIcons: Record<string, React.ReactNode> = {
-  'AI & Machine Learning': <Brain className="text-primary dark:text-secondary" size={24} />,
-  'Data Engineering & Analytics': <Database className="text-primary dark:text-secondary" size={24} />,
-  'Backend & API Development': <Server className="text-primary dark:text-secondary" size={24} />,
-  'Frontend Development': <Layout className="text-primary dark:text-secondary" size={24} />,
-  'Databases': <HardDrive className="text-primary dark:text-secondary" size={24} />,
-  'Databases & Cloud': <Cloud className="text-primary dark:text-secondary" size={24} />,
-  'Tools, Cloud & Infrastructure': <Cloud className="text-primary dark:text-secondary" size={24} />,
-  'Tools & DevOps': <Wrench className="text-primary dark:text-secondary" size={24} />,
-  'IoT & Embedded Systems': <Cpu className="text-primary dark:text-secondary" size={24} />,
-};
+// Split skills into two rows for the opposite-direction marquees
+const row1Categories = skills.slice(0, 4);  // AI/ML, Data, Backend, Frontend
+const row2Categories = skills.slice(4);     // DB/Cloud, DevOps, IoT
+
+// Flatten all chips from a set of categories into one array
+const flatChips = (cats: typeof skills) =>
+  cats.flatMap(cat =>
+    cat.items.map(item => ({ category: cat.category, item }))
+  );
+
+const row1Chips = flatChips(row1Categories);
+const row2Chips = flatChips(row2Categories);
 
 export default function Skills() {
   const { ref, isVisible } = useInView();
@@ -29,7 +20,7 @@ export default function Skills() {
   return (
     <section
       id="skills"
-      className="py-20 bg-white dark:bg-canvas-dark"
+      className="py-20 bg-white dark:bg-canvas-dark overflow-hidden"
       aria-labelledby="skills-heading"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -39,42 +30,44 @@ export default function Skills() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h2 id="skills-heading" className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-4">
+          <h2 id="skills-heading" className="text-3xl md:text-4xl font-bold text-gray-900 dark:text-white text-center mb-2">
             Technical <span className="text-primary dark:text-secondary">Skills</span>
           </h2>
           <p className="text-lg text-gray-500 dark:text-gray-400 text-center mb-12">
             Technologies and tools I work with
           </p>
+        </div>
+      </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-            {skills.map((skillGroup, index) => {
-              const isLastOdd = skills.length % 2 !== 0 && index === skills.length - 1;
-              return (
-                <div
-                  key={index}
-                  className={`project-card p-6 hover:shadow-xl transition-shadow duration-300 ${
-                    isLastOdd ? 'lg:col-span-2 lg:max-w-[calc(50%-12px)] lg:mx-auto' : ''
-                  }`}
-                >
-                  <div className="flex items-center gap-3 mb-4">
-                    {categoryIcons[skillGroup.category] || (
-                      <Wrench className="text-primary dark:text-secondary" size={24} />
-                    )}
-                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                      {skillGroup.category}
-                    </h3>
-                  </div>
-                  <div className="flex flex-wrap gap-2">
-                    {skillGroup.items.map((skill, sIndex) => (
-                      <span key={sIndex} className="skill-chip">
-                        {skill}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
+      {/* Row 1 — scrolls left */}
+      <div className="marquee-wrapper mb-4">
+        <div className="marquee-track marquee-track--left">
+          {[...row1Chips, ...row1Chips].map(({ category, item }, i) => (
+            <div
+              key={i}
+              className="flex-none flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-sm whitespace-nowrap"
+            >
+              <span className="w-2 h-2 rounded-full bg-primary dark:bg-secondary flex-none" aria-hidden="true" />
+              <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">{category.split(' ')[0]}</span>
+              <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{item}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Row 2 — scrolls right */}
+      <div className="marquee-wrapper">
+        <div className="marquee-track marquee-track--right">
+          {[...row2Chips, ...row2Chips].map(({ category, item }, i) => (
+            <div
+              key={i}
+              className="flex-none flex items-center gap-2 px-4 py-2.5 rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-sm whitespace-nowrap"
+            >
+              <span className="w-2 h-2 rounded-full bg-secondary dark:bg-secondary flex-none" aria-hidden="true" />
+              <span className="text-xs text-gray-400 dark:text-gray-500 font-medium">{category.split(' ')[0]}</span>
+              <span className="text-sm font-semibold text-gray-700 dark:text-gray-200">{item}</span>
+            </div>
+          ))}
         </div>
       </div>
     </section>

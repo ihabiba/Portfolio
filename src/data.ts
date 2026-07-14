@@ -69,6 +69,7 @@ export const navItems: NavItem[] = [
   { label: 'Skills', href: '#skills' },
   { label: 'Experience', href: '#experience' },
   { label: 'Projects', href: '#projects' },
+  { label: 'Activities', href: '#leadership' },
   { label: 'Education', href: '#education' },
   { label: 'Certificates', href: '#certificates' },
   { label: 'Languages', href: '#languages' },
@@ -101,9 +102,9 @@ export const heroData = {
 // ============================================
 export const aboutData = {
   paragraphs: [
-    "I am a final-year Computer Science (Data Science) student currently working across <strong>two concurrent engineering internships</strong> — developing industrial computer vision systems for automated defect detection at IRnow Sdn Bhd, and building AI-powered platforms and RAG-based systems at NextGen Spark Sdn Bhd.",
-    "My work spans the full AI stack: from <strong>model training, edge AI deployment, and computer vision pipelines</strong> to full-stack development, NLP analytics, LLM integration, and production-ready system deployment. I approach problems end-to-end — understanding the operational context first, then engineering solutions that are technically sound and practically valuable.",
-    "I am driven by <strong>applied AI that moves beyond notebooks</strong> — systems that run in factories, products that real users interact with, and models that explain their own decisions.",
+    "I'm a final-year Computer Science (Data Science) student currently running <strong>two concurrent engineering internships</strong>. At IRnow Sdn Bhd I build industrial computer vision systems for automated defect detection across manufacturing clients. At NextGen Spark Sdn Bhd I develop AI-powered platforms, RAG-based chat systems, and analytics dashboards.",
+    "My work covers the <strong>full AI lifecycle</strong>: from data collection, annotation, and preprocessing through model training, evaluation, edge AI deployment, and into production. I've worked across computer vision, deep learning, NLP, LLM integration, and full-stack development, always focused on systems that hold up in the real world.",
+    "What drives me is <strong>applied AI that actually ships</strong>: systems deployed in factories, products users depend on, and models that can explain their own decisions.",
   ],
 };
 

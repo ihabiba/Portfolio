@@ -1,42 +1,47 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { Github, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react';
 import { projects } from '../data';
 import { useInView } from '../hooks/useInView';
 
+const GAP = 24;
+
 export default function Projects() {
   const { ref, isVisible } = useInView();
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const trackRef = useRef<HTMLDivElement>(null);
+  const cardRef = useRef<HTMLElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const isPaused = useRef(false);
+  const currentRef = useRef(0);
+  currentRef.current = currentIndex;
 
-  const GAP = 24;
-
-  const getCardWidth = () => {
-    const slider = sliderRef.current;
-    if (!slider) return 0;
-    const card = slider.children[0] as HTMLElement;
+  const getCardWidth = useCallback(() => {
+    const card = cardRef.current;
     return card ? card.offsetWidth + GAP : 0;
-  };
-
-  const scrollToIndex = (index: number) => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-    const clamped = Math.max(0, Math.min(projects.length - 1, index));
-    slider.scrollTo({ left: clamped * getCardWidth(), behavior: 'smooth' });
-    setCurrentIndex(clamped);
-  };
-
-  useEffect(() => {
-    const slider = sliderRef.current;
-    if (!slider) return;
-    const onScroll = () => {
-      const cardWidth = getCardWidth();
-      if (cardWidth > 0) {
-        setCurrentIndex(Math.round(slider.scrollLeft / cardWidth));
-      }
-    };
-    slider.addEventListener('scroll', onScroll, { passive: true });
-    return () => slider.removeEventListener('scroll', onScroll);
   }, []);
+
+  const slideTo = useCallback((index: number) => {
+    const track = trackRef.current;
+    if (!track) return;
+    const clamped = (index + projects.length) % projects.length;
+    track.style.transform = `translateX(-${clamped * getCardWidth()}px)`;
+    setCurrentIndex(clamped);
+    currentRef.current = clamped;
+  }, [getCardWidth]);
+
+  // Auto-play
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!isPaused.current) slideTo(currentRef.current + 1);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, [slideTo]);
+
+  // Recalculate on resize
+  useEffect(() => {
+    const onResize = () => slideTo(currentRef.current);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, [slideTo]);
 
   return (
     <section
@@ -58,13 +63,16 @@ export default function Projects() {
             A selection of my recent work
           </p>
 
-          {/* Slider wrapper */}
-          <div className="relative">
+          {/* Carousel */}
+          <div
+            className="relative"
+            onMouseEnter={() => { isPaused.current = true; }}
+            onMouseLeave={() => { isPaused.current = false; }}
+          >
             {/* Left arrow */}
             <button
-              onClick={() => scrollToIndex(currentIndex - 1)}
-              disabled={currentIndex === 0}
-              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-md text-primary dark:text-secondary disabled:opacity-30 hover:bg-tint dark:hover:bg-gray-700 transition-all duration-200 hidden sm:flex"
+              onClick={() => slideTo(currentIndex - 1)}
+              className="absolute -left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 hidden sm:flex items-center justify-center rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-md text-primary dark:text-secondary hover:bg-tint dark:hover:bg-gray-700 transition-all duration-200"
               aria-label="Previous project"
             >
               <ChevronLeft size={20} />
@@ -72,118 +80,85 @@ export default function Projects() {
 
             {/* Right arrow */}
             <button
-              onClick={() => scrollToIndex(currentIndex + 1)}
-              disabled={currentIndex === projects.length - 1}
-              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-md text-primary dark:text-secondary disabled:opacity-30 hover:bg-tint dark:hover:bg-gray-700 transition-all duration-200 hidden sm:flex"
+              onClick={() => slideTo(currentIndex + 1)}
+              className="absolute -right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 hidden sm:flex items-center justify-center rounded-full bg-white dark:bg-canvas-darkAlt border border-gray-200 dark:border-gray-700 shadow-md text-primary dark:text-secondary hover:bg-tint dark:hover:bg-gray-700 transition-all duration-200"
               aria-label="Next project"
             >
               <ChevronRight size={20} />
             </button>
 
-            {/* Scrollable track */}
-            <div
-              ref={sliderRef}
-              className="slider-track flex gap-6 overflow-x-auto pb-4"
-            >
-              {projects.map((project, index) => (
-                <article
-                  key={index}
-                  className="slider-card project-card p-6 flex flex-col flex-none snap-center"
-                >
-                  {/* Card number */}
-                  <span className="text-xs font-bold text-gray-300 dark:text-gray-600 mb-3 tracking-widest">
-                    {String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
-                  </span>
+            {/* Track */}
+            <div className="carousel-wrapper">
+              <div ref={trackRef} className="carousel-track gap-6">
+                {projects.map((project, index) => (
+                  <article
+                    key={index}
+                    ref={index === 0 ? (cardRef as React.RefObject<HTMLElement>) : undefined}
+                    className="carousel-card project-card p-6 flex flex-col"
+                  >
+                    <span className="text-xs font-bold text-gray-300 dark:text-gray-600 mb-3 tracking-widest">
+                      {String(index + 1).padStart(2, '0')} / {String(projects.length).padStart(2, '0')}
+                    </span>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
-                    {project.title}
-                  </h3>
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2 leading-snug">
+                      {project.title}
+                    </h3>
 
-                  {/* Description */}
-                  <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
-                    {project.description}
-                  </p>
+                    <p className="text-gray-600 dark:text-gray-300 mb-4 text-sm leading-relaxed">
+                      {project.description}
+                    </p>
 
-                  {/* Highlights */}
-                  <ul className="space-y-2 mb-4 flex-grow">
-                    {project.highlights.map((highlight, hIndex) => (
-                      <li key={hIndex} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
-                        <span className="text-primary dark:text-secondary mt-1.5 flex-none">▸</span>
-                        {highlight}
-                      </li>
-                    ))}
-                  </ul>
+                    <ul className="space-y-2 mb-4 flex-grow">
+                      {project.highlights.map((h, i) => (
+                        <li key={i} className="flex items-start gap-2 text-sm text-gray-600 dark:text-gray-300 leading-relaxed">
+                          <span className="text-primary dark:text-secondary mt-1.5 flex-none">▸</span>
+                          {h}
+                        </li>
+                      ))}
+                    </ul>
 
-                  {/* Tech Stack */}
-                  <div className="flex flex-wrap gap-1.5 mb-4">
-                    {project.techStack.map((tech, tIndex) => (
-                      <span key={tIndex} className="skill-chip text-xs py-1 px-2.5">
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                    <div className="flex flex-wrap gap-1.5 mb-4">
+                      {project.techStack.map((tech, i) => (
+                        <span key={i} className="skill-chip text-xs py-1 px-2.5">{tech}</span>
+                      ))}
+                    </div>
 
-                  {/* Buttons */}
-                  <div className="flex flex-wrap gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
-                    {project.repoUrl && (
-                      <a
-                        href={project.repoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
-                                 text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800
-                                 rounded-lg hover:bg-primary hover:text-white
-                                 transition-all duration-200 border border-gray-200 dark:border-gray-700"
-                        aria-label={`View ${project.title} on GitHub`}
-                      >
-                        <Github size={14} />
-                        Repo
-                      </a>
-                    )}
-                    {project.demoUrl && (
-                      <a
-                        href={project.demoUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
-                                 text-white bg-primary rounded-lg hover:bg-primary-hover
-                                 transition-all duration-200 shadow-sm"
-                        aria-label={`View ${project.title} demo`}
-                      >
-                        <ExternalLink size={14} />
-                        {project.demoUrl2 ? 'Demo 1' : 'Demo'}
-                      </a>
-                    )}
-                    {project.demoUrl2 && (
-                      <a
-                        href={project.demoUrl2}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium
-                                 text-white bg-primary rounded-lg hover:bg-primary-hover
-                                 transition-all duration-200 shadow-sm"
-                      >
-                        <ExternalLink size={14} />
-                        Demo 2
-                      </a>
-                    )}
-                  </div>
-                </article>
-              ))}
+                    <div className="flex flex-wrap gap-2 mt-auto pt-3 border-t border-gray-100 dark:border-gray-700">
+                      {project.repoUrl && (
+                        <a href={project.repoUrl} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-gray-700 dark:text-gray-200 bg-gray-50 dark:bg-gray-800 rounded-lg hover:bg-primary hover:text-white transition-all duration-200 border border-gray-200 dark:border-gray-700">
+                          <Github size={14} /> Repo
+                        </a>
+                      )}
+                      {project.demoUrl && (
+                        <a href={project.demoUrl} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-all duration-200 shadow-sm">
+                          <ExternalLink size={14} /> {project.demoUrl2 ? 'Demo 1' : 'Demo'}
+                        </a>
+                      )}
+                      {project.demoUrl2 && (
+                        <a href={project.demoUrl2} target="_blank" rel="noopener noreferrer"
+                          className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white bg-primary rounded-lg hover:bg-primary-hover transition-all duration-200 shadow-sm">
+                          <ExternalLink size={14} /> Demo 2
+                        </a>
+                      )}
+                    </div>
+                  </article>
+                ))}
+              </div>
             </div>
           </div>
 
-          {/* Dot indicators */}
+          {/* Dots */}
           <div className="flex justify-center gap-2 mt-6">
             {projects.map((_, i) => (
               <button
                 key={i}
-                onClick={() => scrollToIndex(i)}
+                onClick={() => slideTo(i)}
                 className={`h-2 rounded-full transition-all duration-300 ${
                   i === currentIndex
                     ? 'w-8 bg-primary dark:bg-secondary'
-                    : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-secondary dark:hover:bg-secondary'
+                    : 'w-2 bg-gray-300 dark:bg-gray-600 hover:bg-secondary'
                 }`}
                 aria-label={`Go to project ${i + 1}`}
               />
@@ -192,12 +167,7 @@ export default function Projects() {
 
           {/* GitHub CTA */}
           <div className="flex justify-center mt-8">
-            <a
-              href="https://github.com/ihabiba"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="btn-secondary text-sm px-6 py-2.5"
-            >
+            <a href="https://github.com/ihabiba" target="_blank" rel="noopener noreferrer" className="btn-secondary text-sm px-6 py-2.5">
               <Github size={16} />
               More projects on GitHub
             </a>
