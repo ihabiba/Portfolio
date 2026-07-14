@@ -17,7 +17,9 @@ const categoryIcons: Record<string, React.ReactNode> = {
   'Backend & API Development': <Server className="text-primary dark:text-secondary" size={24} />,
   'Frontend Development': <Layout className="text-primary dark:text-secondary" size={24} />,
   'Databases': <HardDrive className="text-primary dark:text-secondary" size={24} />,
+  'Databases & Cloud': <Cloud className="text-primary dark:text-secondary" size={24} />,
   'Tools, Cloud & Infrastructure': <Cloud className="text-primary dark:text-secondary" size={24} />,
+  'Tools & DevOps': <Wrench className="text-primary dark:text-secondary" size={24} />,
   'IoT & Embedded Systems': <Cpu className="text-primary dark:text-secondary" size={24} />,
 };
 

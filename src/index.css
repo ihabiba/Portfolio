@@ -280,3 +280,79 @@ body {
 .dark .project-card:hover {
   border-color: rgba(163, 103, 138, 0.35) !important;
 }
+
+/* -----------------------------------------------------------------
+   GRADIENT NAME
+   ----------------------------------------------------------------- */
+
+.gradient-name {
+  background: linear-gradient(135deg, #66023C 0%, #A3678A 45%, #66023C 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 4s ease-in-out infinite;
+}
+
+.dark .gradient-name {
+  background: linear-gradient(135deg, #A3678A 0%, #d4a0bb 45%, #A3678A 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  animation: shimmer-text 4s ease-in-out infinite;
+}
+
+@keyframes shimmer-text {
+  0%   { background-position: 0% center; }
+  50%  { background-position: 100% center; }
+  100% { background-position: 0% center; }
+}
+
+/* -----------------------------------------------------------------
+   PROJECT SLIDER
+   ----------------------------------------------------------------- */
+
+.slider-track {
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.slider-track::-webkit-scrollbar {
+  display: none;
+}
+
+.slider-card {
+  width: 82vw;
+  max-width: 480px;
+  scroll-snap-align: center;
+}
+
+@media (min-width: 640px) {
+  .slider-card {
+    width: 60vw;
+  }
+}
+
+@media (min-width: 1024px) {
+  .slider-card {
+    width: 44vw;
+  }
+}
+
+/* -----------------------------------------------------------------
+   SECTION ENTRANCE — items fade up when scrolled into view
+   ----------------------------------------------------------------- */
+
+.section-fade {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.65s ease-out, transform 0.65s ease-out;
+}
+
+.section-fade.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
