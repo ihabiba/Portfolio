@@ -59,7 +59,7 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
 
           {/* Logo */}
           <a href="#" aria-label="Home">
-            <span className="text-2xl font-bold text-primary dark:text-secondary select-none tracking-tight">H</span>
+            <span className="text-3xl font-bold gradient-name-h select-none">H</span>
           </a>
 
           {/* Desktop Navigation */}
