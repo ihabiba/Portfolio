@@ -39,12 +39,6 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom text */}
-        <div className="mt-8 pt-8 border-t border-white/10 text-center text-sm text-purple-100/60">
-          <p>
-            Open for internship opportunities starting March 2026
-          </p>
-        </div>
       </div>
     </footer>
   );
