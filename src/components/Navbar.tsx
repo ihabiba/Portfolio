@@ -57,9 +57,9 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
 
-          {/* Logo — gradient H only */}
-          <a href="#" className="group" aria-label="Home">
-            <span className="text-3xl font-bold gradient-name select-none">H</span>
+          {/* Logo */}
+          <a href="#" aria-label="Home">
+            <span className="text-2xl font-bold text-primary dark:text-secondary select-none tracking-tight">H</span>
           </a>
 
           {/* Desktop Navigation */}
@@ -71,7 +71,7 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
                 <button
                   key={item.href}
                   onClick={() => handleNavClick(item.href)}
-                  className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-lg relative
+                  className={`px-4 py-2 font-medium transition-all duration-200 rounded-lg relative
                     ${isActive
                       ? 'text-primary dark:text-secondary'
                       : 'text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-tint dark:hover:bg-white/10'
