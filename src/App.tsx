@@ -1,4 +1,5 @@
 import Navbar from './components/Navbar';
+import ScrollProgress from './components/ScrollProgress';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
@@ -27,6 +28,7 @@ function App() {
         Skip to main content
       </a>
 
+      <ScrollProgress />
       <Navbar darkMode={darkMode} toggleDarkMode={toggleDarkMode} />
 
       <main id="main-content">

@@ -10,21 +10,38 @@ interface NavbarProps {
 export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState('');
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 20);
-    };
-    window.addEventListener('scroll', handleScroll);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Active section tracking
+  useEffect(() => {
+    const sectionIds = navItems
+      .map(item => item.href.replace('#', ''))
+      .filter(id => document.getElementById(id));
+
+    const observers = sectionIds.map(id => {
+      const el = document.getElementById(id);
+      if (!el) return null;
+      const observer = new IntersectionObserver(
+        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
+        { threshold: 0.25, rootMargin: '-80px 0px -55% 0px' }
+      );
+      observer.observe(el);
+      return observer;
+    });
+
+    return () => observers.forEach(obs => obs?.disconnect());
   }, []);
 
   const handleNavClick = (href: string) => {
     setIsOpen(false);
     const element = document.querySelector(href);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
+    if (element) element.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
@@ -39,74 +56,82 @@ export default function Navbar({ darkMode, toggleDarkMode }: NavbarProps) {
     >
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
-          {/* Logo */}
-          <a
-            href="#"
-            className="flex items-center gap-2.5 group"
-            aria-label="Home"
-          >
-            <img
-              src="/Portfolio/favicon.svg"
-              alt=""
-              className="w-8 h-8 rounded-lg shadow-sm group-hover:scale-105 transition-transform duration-200"
-              aria-hidden="true"
-            />
-            <span className="text-xl font-bold tracking-tight gradient-name">
-              Habiba
-            </span>
+
+          {/* Logo — gradient H only */}
+          <a href="#" className="group" aria-label="Home">
+            <span className="text-3xl font-bold gradient-name select-none">H</span>
           </a>
 
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-1">
-            {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => handleNavClick(item.href)}
-                className="px-4 py-2 font-medium transition-colors rounded-lg text-gray-600 dark:text-gray-300 hover:bg-tint dark:hover:bg-white/10 hover:text-primary dark:hover:text-white"
-              >
-                {item.label}
-              </button>
-            ))}
+            {navItems.map((item) => {
+              const id = item.href.replace('#', '');
+              const isActive = activeSection === id;
+              return (
+                <button
+                  key={item.href}
+                  onClick={() => handleNavClick(item.href)}
+                  className={`px-3 py-2 text-sm font-medium transition-all duration-200 rounded-lg relative
+                    ${isActive
+                      ? 'text-primary dark:text-secondary'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-tint dark:hover:bg-white/10'
+                    }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-4 h-0.5 rounded-full bg-primary dark:bg-secondary" />
+                  )}
+                </button>
+              );
+            })}
             <button
               onClick={toggleDarkMode}
-              className="ml-4 p-2 rounded-lg transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-secondary hover:bg-tint dark:hover:bg-gray-700"
+              className="ml-3 p-2 rounded-lg transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-secondary hover:bg-tint dark:hover:bg-gray-700"
               aria-label={darkMode ? 'Switch to light mode' : 'Switch to dark mode'}
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
           </div>
 
-          {/* Mobile Menu Button */}
+          {/* Mobile buttons */}
           <div className="flex items-center md:hidden space-x-2">
             <button
               onClick={toggleDarkMode}
               className="p-2 rounded-lg transition-colors bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-secondary"
+              aria-label={darkMode ? 'Light mode' : 'Dark mode'}
             >
-              {darkMode ? <Sun size={20} /> : <Moon size={20} />}
+              {darkMode ? <Sun size={18} /> : <Moon size={18} />}
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 rounded-lg transition-colors text-gray-600 dark:text-gray-300 hover:bg-tint dark:hover:bg-gray-700"
+              aria-label="Toggle menu"
             >
-              {isOpen ? <X size={24} /> : <Menu size={24} />}
+              {isOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Mobile menu */}
         {isOpen && (
-          <div className="md:hidden py-4 bg-white dark:bg-tertiary border-t border-gray-100 dark:border-white/10 shadow-lg rounded-b-xl">
-            {navItems.map((item) => (
-              <button
-                key={item.href}
-                onClick={() => handleNavClick(item.href)}
-                className="block w-full text-left px-4 py-3 text-gray-600 dark:text-purple-100 
-                           hover:text-primary dark:hover:text-white hover:bg-tint 
-                           dark:hover:bg-white/10 font-medium transition-colors"
-              >
-                {item.label}
-              </button>
-            ))}
+          <div className="md:hidden py-3 bg-white dark:bg-canvas-darkAlt border-t border-gray-100 dark:border-gray-700 shadow-lg rounded-b-xl">
+            {navItems.map((item) => {
+              const id = item.href.replace('#', '');
+              const isActive = activeSection === id;
+              return (
+                <button
+                  key={item.href}
+                  onClick={() => handleNavClick(item.href)}
+                  className={`block w-full text-left px-4 py-3 font-medium transition-colors
+                    ${isActive
+                      ? 'text-primary dark:text-secondary bg-tint dark:bg-gray-800'
+                      : 'text-gray-600 dark:text-gray-300 hover:text-primary dark:hover:text-white hover:bg-tint dark:hover:bg-white/10'
+                    }`}
+                >
+                  {item.label}
+                </button>
+              );
+            })}
           </div>
         )}
       </div>

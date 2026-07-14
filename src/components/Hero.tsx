@@ -28,7 +28,7 @@ export default function Hero() {
       <div className="hero-orb hero-orb--violet" aria-hidden="true" />
       <div className="hero-orb hero-orb--rose" aria-hidden="true" />
 
-      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <div className="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-20 pb-28">
         <div className="animate-fade-in flex flex-col lg:flex-row items-center gap-12">
 
           {/* Profile Image */}
@@ -118,12 +118,12 @@ export default function Hero() {
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Scroll indicator */}
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce hidden md:block">
-          <div className="w-6 h-10 border-2 border-primary dark:border-secondary rounded-full flex justify-center opacity-60">
-            <div className="w-1 h-3 bg-primary dark:bg-secondary rounded-full mt-2" />
-          </div>
+      {/* Scroll indicator — anchored to bottom of section */}
+      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 animate-bounce hidden md:block">
+        <div className="w-6 h-10 border-2 border-primary dark:border-secondary rounded-full flex justify-center opacity-60">
+          <div className="w-1 h-3 bg-primary dark:bg-secondary rounded-full mt-2" />
         </div>
       </div>
     </section>

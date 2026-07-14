@@ -291,7 +291,7 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer-text 3.5s ease-in-out infinite;
+  animation: shimmer-text 6s ease-in-out infinite;
 }
 
 .dark .gradient-name {
@@ -300,13 +300,18 @@ body {
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
-  animation: shimmer-text 3.5s ease-in-out infinite;
+  animation: shimmer-text 6s ease-in-out infinite;
 }
 
 @keyframes shimmer-text {
   0%   { background-position: 0% center; }
   50%  { background-position: 100% center; }
   100% { background-position: 0% center; }
+}
+
+/* Slower shimmer for navbar H */
+.gradient-name-slow {
+  animation-duration: 6s;
 }
 
 /* -----------------------------------------------------------------

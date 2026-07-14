@@ -89,7 +89,7 @@ export const heroData = {
     'Deep Learning Practitioner',
   ],
   location: 'Malaysia',
-  pitch: 'Building end-to-end intelligent systems — from industrial computer vision and edge AI deployment to full-stack AI platforms and data-driven applications.',
+  pitch: 'Building end-to-end intelligent systems: from industrial computer vision and edge AI deployment to full-stack AI platforms and data-driven applications.',
   profileImage: '/Portfolio/profile.jfif',
   resumeUrl: '/Portfolio/Habiba_Hassan_CV.pdf',
   email: 'itshabibahassan@gmail.com',
